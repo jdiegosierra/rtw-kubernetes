@@ -1,0 +1,24 @@
+---
+- name: Setup control node
+  hosts: tag_Name_kubernetes_control_plane
+  remote_user: ubuntu
+  become_user: root
+  become: true
+  tags: [ no_remote ]
+  roles:
+    - role: generate-hosts-file
+    - role: install-kubernetes
+    # - role: init-control-plane
+
+- name: Setup Worker Nodes
+  hosts: tag_Name_kubernetes_control_plane
+  run_once: true
+  remote_user: ubuntu
+  become_user: root
+  become: true
+  tags: [ remote ]
+  roles:
+    - role: exec-ansible
+      AWS_PROFILE: development
+      playbook: ./kubernetes/play-from-bastion.yaml
+      tags: worker_node

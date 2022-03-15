@@ -1,0 +1,6 @@
+---
+- name: Join Kubernetes cluster
+  shell: "{{ lookup('file', './roles/init-control-plane/files/join-command') }}"
+  register: output
+
+- debug: var=output.stdout_lines

@@ -1,0 +1,3 @@
+sudo kubeadm join cluster-lb-6970be5e08ad121a.elb.eu-west-1.amazonaws.com:6443 --token e2uufk.4j1cp8pscyg7f0o4 \
+--discovery-token-ca-cert-hash sha256:cd29d8ed1d389c17fadc37a205b7f3230e870a086671dd80b0b94e89dc6bdd57 \
+--control-plane --certificate-key 538cf1d28c268ae059c0d28a73b719f487f8e0e60aa6c957ca38c47bd0ede182

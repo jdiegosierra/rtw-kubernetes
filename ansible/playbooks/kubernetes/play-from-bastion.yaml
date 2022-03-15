@@ -1,0 +1,10 @@
+---
+- name: Join worker node to cluster 
+  hosts: tag_Name_kubernetes_worker_node
+  remote_user: ubuntu
+  become_user: root
+  become: true
+  roles:
+    - role: generate-hosts-file
+    - role: install-kubernetes
+    # - role: join-kubernetes-cluster

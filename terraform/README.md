@@ -1,0 +1,1 @@
+source ./config/development.env && terraform apply

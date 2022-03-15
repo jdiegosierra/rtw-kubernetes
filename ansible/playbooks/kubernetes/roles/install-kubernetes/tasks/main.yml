@@ -1,0 +1,119 @@
+---
+- name: Create a directory /etc/modules-load
+  file:
+    path: "/etc/modules-load"
+    state: directory
+    recurse: yes
+
+- name: Create a file /etc/modules-load/k8s.conf with content
+  copy:
+    dest: "/etc/modules-load/k8s.conf"
+    content: |
+      overlay
+      br_netfilter
+  register: newModuleConfig
+
+- name: Create a directory /etc/sysctl.d
+  file:
+    path: "/etc/sysctl.d"
+    state: directory
+    recurse: yes
+
+- name: Create a file /etc/sysctl.d/k8s.conf with content
+  copy:
+    dest: "/etc/sysctl.d/k8s.conf"
+    content: |
+      net.bridge.bridge-nf-call-ip6tables = 1
+      net.bridge.bridge-nf-call-iptables  = 1
+      net.ipv4.ip_forward                 = 1
+  register: newSysctlConfig
+
+- name: Add the overlay module
+  when: newModuleConfig.changed
+  community.general.modprobe:
+    name: overlay
+    state: present
+
+- name: Add the br_netfilter module
+  when: newModuleConfig.changed
+  community.general.modprobe:
+    name: br_netfilter
+    state: present
+
+- name: Reload config
+  when: newSysctlConfig.changed
+  command: sysctl --system
+
+- name: Install necessary packages
+  loop:
+    - containerd
+    - apt-transport-https
+    - ca-certificates
+    - curl
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+
+- name: Create a directory /etc/containerd
+  file:
+    path: "/etc/containerd"
+    state: directory
+    recurse: yes
+
+- name: Read containerd default config file
+  command: containerd config default
+  register: containerdConfig
+
+- name: Create containerd config file
+  copy:
+    dest: "/etc/containerd/config.toml"
+    content: "{{ containerdConfig.stdout }}"
+  register: newContainerdConfig
+
+- name: Restart systemctl
+  when: newContainerdConfig.changed
+  command: systemctl restart containerd
+
+- name: Remove swapfile from /etc/fstab
+  loop:
+    - swap
+    - none
+  mount:
+    name: "{{ item }}"
+    fstype: swap
+    state: absent
+
+- name: Disable swap
+  when: ansible_swaptotal_mb > 0
+  command: swapoff -a
+
+- name: Add an apt signing key for Kubernetes
+  apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    state: present
+
+- name: Add apt repository for Kubernetes
+  apt_repository:
+    repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+    state: present
+    filename: kubernetes.list
+
+- name: Install Kubernetes binaries
+  loop:
+    - kubelet 
+    - kubeadm 
+    - kubectl
+  apt: 
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+
+- name: Hold binaries
+  loop:
+    - kubelet 
+    - kubeadm 
+    - kubectl
+  dpkg_selections:
+    name: "{{ item }}"
+    selection: hold

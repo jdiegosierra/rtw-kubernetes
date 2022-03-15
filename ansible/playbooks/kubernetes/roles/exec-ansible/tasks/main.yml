@@ -1,0 +1,50 @@
+---
+- name: Install necessary packages
+  loop:
+    - ansible
+    - python3-pip
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+
+- name: Copy ansible project
+  become: false
+  synchronize:
+    src: ../../../ansible
+    dest: /home/ubuntu
+
+- name: Copy ssh keys
+  copy:
+    src: ~/.ssh/id_rsa
+    dest: /home/ubuntu/.ssh
+    mode: '0666'
+
+- name: Copy aws keys
+  copy:
+    src: ~/.aws
+    dest: /home/ubuntu
+    mode: '0777'
+
+- name: Install Python necessary packages
+  loop:
+    - boto3
+    - botocore
+  pip:
+    name: "{{ item }}"
+    executable: pip3
+
+- name: Install ansible modules
+  become: false
+  shell: ansible-galaxy collection install community.general
+  args:
+    chdir: /home/ubuntu/ansible
+
+- name: Exec ansible
+  become: false
+  shell: AWS_PROFILE=development ansible-playbook './playbooks/kubernetes/play-from-bastion.yaml'
+  args:
+    chdir: /home/ubuntu/ansible
+  register: output
+
+- debug: var=output.stdout_lines

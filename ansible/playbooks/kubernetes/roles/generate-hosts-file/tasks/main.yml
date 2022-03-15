@@ -1,0 +1,19 @@
+---
+- name: Creating template
+  template:
+    src: generate-hosts.j2
+    dest: /tmp/hosts
+
+- name: Read hosts file
+  command: cat /tmp/hosts
+  register: hosts_contents
+
+- name: Add to hosts file
+  loop: "{{ hosts_contents.stdout_lines }}"
+  lineinfile:
+    dest: /etc/hosts
+    line: "{{ item }}"
+
+- name: Copy hosts to local file
+  become: false
+  local_action: copy content="{{ hosts_contents.stdout_lines[0] }}" dest="./roles/generate-hosts-file/files/hosts"

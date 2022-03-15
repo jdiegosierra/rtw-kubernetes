@@ -1,0 +1,60 @@
+---
+- name: Check if node is running
+  become: false
+  shell: kubectl get nodes
+  register: isNodeRunning
+  ignore_errors: yes 
+
+- name: Initialize the Kubernetes cluster using kubeadm
+  shell: kubeadm init --pod-network-cidr=10.0.1.0/24
+  when: isNodeRunning.failed
+
+- name: Create a directory .kube
+  become: false
+  file:
+    path: "$HOME/.kube"
+    state: directory
+    recurse: yes
+  register: newKubeConfig
+
+- name: Setup kubeconfig
+  when: newKubeConfig.changed
+  shell: "{{ item }}"
+  with_items:
+    - cat /etc/kubernetes/admin.conf > /home/ubuntu/.kube/config
+    - chown $(id -u):$(id -g) /home/ubuntu/.kube/config
+
+- name: Check if node is running
+  when: newKubeConfig.changed
+  become: false
+  shell: kubectl get nodes
+
+- name: Install calico pod network
+  become: false
+  command: kubectl apply -f https://projectcalico.docs.tigera.io/manifests/calico.yaml
+
+- name: Generate join command
+  become: false
+  command: kubeadm token create --print-join-command
+  register: join_command
+
+- name: Copy join command to local file
+  become: false
+  local_action: copy content="{{ join_command.stdout_lines[0] }}" dest="./roles/init-control-plane/files/join-command"
+
+- name: Copy templates
+  become: false
+  synchronize:
+    src: ./roles/init-control-plane/files
+    dest: /home/ubuntu
+
+# - name: Configure node ip
+#   lineinfile:
+#     path: /etc/default/kubelet
+#     line: KUBELET_EXTRA_ARGS=--node-ip={{ passed_in_hosts }}
+
+# - name: Restart kubelet
+#   service:
+#     name: kubelet
+#     daemon_reload: yes
+#     state: restarted

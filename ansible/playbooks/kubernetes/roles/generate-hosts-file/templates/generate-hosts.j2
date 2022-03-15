@@ -1,0 +1,4 @@
+{% for host in groups['aws_ec2'] %}
+{{ host }} {{ hostvars[host] }}
+{{ host }} {{ hostvars[host]['tags']['Name'] }}
+{% endfor %}

@@ -1,3 +1,14 @@
-sudo kubeadm join cluster-lb-6970be5e08ad121a.elb.eu-west-1.amazonaws.com:6443 --token e2uufk.4j1cp8pscyg7f0o4 \
---discovery-token-ca-cert-hash sha256:cd29d8ed1d389c17fadc37a205b7f3230e870a086671dd80b0b94e89dc6bdd57 \
---control-plane --certificate-key 538cf1d28c268ae059c0d28a73b719f487f8e0e60aa6c957ca38c47bd0ede182
+You can now join any number of the control-plane node running the following command on each as root:
+
+sudo kubeadm join cluster-lb-8057d5a8b16b5811.elb.eu-west-1.amazonaws.com:6443 --token vbmbhh.ilz6hwobe1etkp0k \
+--discovery-token-ca-cert-hash sha256:8742cd4b2c69f83d0cde70e98d5d379b01709ebedc0f2742f4df536c1acda3da \
+--control-plane --certificate-key 6fa4790c7c54a22043a55319752282f1e6f04216bcbf72ef8c2e3b802c06d74f
+
+Please note that the certificate-key gives access to cluster sensitive data, keep it secret!
+As a safeguard, uploaded-certs will be deleted in two hours; If necessary, you can use
+"kubeadm init phase upload-certs --upload-certs" to reload certs afterward.
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+sudo kubeadm join cluster-lb-8057d5a8b16b5811.elb.eu-west-1.amazonaws.com:6443 --token vbmbhh.ilz6hwobe1etkp0k \
+--discovery-token-ca-cert-hash sha256:8742cd4b2c69f83d0cde70e98d5d379b01709ebedc0f2742f4df536c1acda3da 

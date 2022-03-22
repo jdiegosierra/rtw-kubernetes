@@ -1,0 +1,17 @@
+{
+  "Statement": [
+    {
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Condition": {
+        "StringEquals": {
+          "talento-development-kops-oidc.s3.us-east-1.amazonaws.com//discovery/talento.k8s.local:sub": "system:serviceaccount:kube-system:ebs-csi-controller-sa"
+        }
+      },
+      "Effect": "Allow",
+      "Principal": {
+        "Federated": "arn:aws:iam::782886332900:oidc-provider/talento-development-kops-oidc.s3.us-east-1.amazonaws.com//discovery/talento.k8s.local"
+      }
+    }
+  ],
+  "Version": "2012-10-17"
+}

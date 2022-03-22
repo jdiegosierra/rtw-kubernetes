@@ -1,0 +1,73 @@
+Assets:
+  amd64:
+  - ec3db57edcce219c24ef37f4a6a2eef5a1543e4a9bd15e7ecc993b9f74950d91@https://storage.googleapis.com/kubernetes-release/release/v1.23.4/bin/linux/amd64/kubelet
+  - 3f0398d4c8a5ff633e09abd0764ed3b9091fafbe3044970108794b02731c72d6@https://storage.googleapis.com/kubernetes-release/release/v1.23.4/bin/linux/amd64/kubectl
+  - 962100bbc4baeaaa5748cdbfce941f756b1531c2eadb290129401498bfac21e7@https://storage.googleapis.com/k8s-artifacts-cni/release/v0.9.1/cni-plugins-linux-amd64-v0.9.1.tgz
+  - c1df0a12af2be019ca2d6c157f94e8ce7430484ab29948c9805882df40ec458b@https://github.com/containerd/containerd/releases/download/v1.6.1/containerd-1.6.1-linux-amd64.tar.gz
+  - ab1c67fbcbdddbe481e48a55cf0ef9a86b38b166b5079e0010737fd87d7454bb@https://github.com/opencontainers/runc/releases/download/v1.1.0/runc.amd64
+  - f54ee8c19d02a5e1e9a80350afdc9e37262eb8dcbf34b573c68610eefc133834@https://artifacts.k8s.io/binaries/kops/1.23.0/linux/amd64/protokube,https://github.com/kubernetes/kops/releases/download/v1.23.0/protokube-linux-amd64
+  - 4d0f9a7bd9dc5f8bfb3f294cb08175932d79e5e57427902983d2e72c507ffd44@https://artifacts.k8s.io/binaries/kops/1.23.0/linux/amd64/channels,https://github.com/kubernetes/kops/releases/download/v1.23.0/channels-linux-amd64
+  arm64:
+  - c4f09c9031a34549fbaa48231b115fee6e170ce6832dce26d4b50b040aad2311@https://storage.googleapis.com/kubernetes-release/release/v1.23.4/bin/linux/arm64/kubelet
+  - aa45dba48791eeb78a994a2723c462d155af4e39fdcfbcb39ce9c96f604a967a@https://storage.googleapis.com/kubernetes-release/release/v1.23.4/bin/linux/arm64/kubectl
+  - ef17764ffd6cdcb16d76401bac1db6acc050c9b088f1be5efa0e094ea3b01df0@https://storage.googleapis.com/k8s-artifacts-cni/release/v0.9.1/cni-plugins-linux-arm64-v0.9.1.tgz
+  - fbeec71f2d37e0e4ceaaac2bdf081295add940a7a5c7a6bcc125e5bbae067791@https://github.com/containerd/containerd/releases/download/v1.6.1/containerd-1.6.1-linux-arm64.tar.gz
+  - 9ec8e68feabc4e7083a4cfa45ebe4d529467391e0b03ee7de7ddda5770b05e68@https://github.com/opencontainers/runc/releases/download/v1.1.0/runc.arm64
+  - 2c9054b21aacdc1930bd7e12a9bdd1e4ec13695b7d19cd6f6ba7d218121e6bae@https://artifacts.k8s.io/binaries/kops/1.23.0/linux/arm64/protokube,https://github.com/kubernetes/kops/releases/download/v1.23.0/protokube-linux-arm64
+  - 551ca81057302a439601a3cb3beb3db0829fcea02f73d72d724c1666417e6873@https://artifacts.k8s.io/binaries/kops/1.23.0/linux/arm64/channels,https://github.com/kubernetes/kops/releases/download/v1.23.0/channels-linux-arm64
+CAs:
+  kubernetes-ca: |
+    -----BEGIN CERTIFICATE-----
+    MIIC+DCCAeCgAwIBAgIMFtyTObGq3dhDeSqdMA0GCSqGSIb3DQEBCwUAMBgxFjAU
+    BgNVBAMTDWt1YmVybmV0ZXMtY2EwHhcNMjIwMzEzMTQxMDM5WhcNMzIwMzEyMTQx
+    MDM5WjAYMRYwFAYDVQQDEw1rdWJlcm5ldGVzLWNhMIIBIjANBgkqhkiG9w0BAQEF
+    AAOCAQ8AMIIBCgKCAQEApBgSkBwkaCkz5HbNfSGtDSYS6PKKxROeMpFqTQ1r/3k9
+    JcDSqGAOYRGDIizqgvh+O+NR0SalHYH3SP49HLTo8R0ApqK6haLWrN0fuJNR9Iyj
+    mRqz/VzRp1hJOu3EH4tiqbFbLEaUG9IT+9HORh5KgAGV9ga1eyk9SwISImXZsG37
+    Hx29twguA6YAM16Ne4jfV6dcTPP+cWFy8ot77+REHxIrG69eRadS1H+YBLLVOLUL
+    azN5NtrzOxlSmgA91/bzfX8h/s63VSNRsuZrAm0dDeVMY1+jWVtKqvSocv3VBLuH
+    7Gp1xdJFonEqgSu+Oq12lnqwR9L5LoPUHtWOq46qiwIDAQABo0IwQDAOBgNVHQ8B
+    Af8EBAMCAQYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUZBsSmWH3RMLNuk0s
+    0XCcrjgq9HIwDQYJKoZIhvcNAQELBQADggEBAAUVgEq1UZzMtV3d6wyu+q+HDnHI
+    s0XET5Rv9AeawM+hr+PcGazTeyBGCqS+2A2iaU7/u46VL+1WCtMgyPn59Juj5fKM
+    GrROKeVJSN6vzfwwUor1fd34oW0brQRnWfrvgWH6rbG7Dn10FVKD6Ag7zHq/TPu0
+    UetOfwHFu6eCXQYU7mnQilCucNjw5Lovwaf3UdjeMZvBtdBx1ATzM9On/mHPs/DK
+    tWTuc0hHCgGpNDbI0TVewbAw+E6CZN2SyoWwynjPiUeD7fukOf0EMY+gXSqf9qrW
+    l3Mc5fCjOu/mmCYauCXzvEqKXB+jxebJgU9FgJzViKYj17kYaQtDIzc2qMQ=
+    -----END CERTIFICATE-----
+ClusterName: talento.k8s.local
+Hooks:
+- null
+- null
+KeypairIDs:
+  kubernetes-ca: "7075329148524492781340142237"
+KubeletConfig:
+  anonymousAuth: false
+  cgroupDriver: systemd
+  cgroupRoot: /
+  cloudProvider: aws
+  clusterDNS: 100.64.0.10
+  clusterDomain: cluster.local
+  enableDebuggingHandlers: true
+  evictionHard: memory.available<100Mi,nodefs.available<10%,nodefs.inodesFree<5%,imagefs.available<10%,imagefs.inodesFree<5%
+  featureGates:
+    CSIMigrationAWS: "true"
+    InTreePluginAWSUnregister: "true"
+  kubeconfigPath: /var/lib/kubelet/kubeconfig
+  logLevel: 2
+  nodeLabels:
+    kops.k8s.io/instancegroup: nodes-eu-west-1a
+    kubernetes.io/role: node
+    node-role.kubernetes.io/node: ""
+  nonMasqueradeCIDR: 100.64.0.0/10
+  podInfraContainerImage: k8s.gcr.io/pause:3.6
+  podManifestPath: /etc/kubernetes/manifests
+  protectKernelDefaults: true
+  shutdownGracePeriod: 30s
+  shutdownGracePeriodCriticalPods: 10s
+UpdatePolicy: automatic
+channels:
+- s3://talento-development-kops-state/talento.k8s.local/addons/bootstrap-channel.yaml
+containerdConfig:
+  logLevel: info
+  version: 1.6.1

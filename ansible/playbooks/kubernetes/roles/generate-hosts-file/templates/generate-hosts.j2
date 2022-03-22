@@ -1,4 +1,3 @@
 {% for host in groups['aws_ec2'] %}
-{{ host }} {{ hostvars[host] }}
-{{ host }} {{ hostvars[host]['tags']['Name'] }}
+{{ hostvars[host]['private_ip_address'] }} {{ hostvars[host]['private_dns_name'] }}
 {% endfor %}

@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: masmovil-backend-multitiendas
+  labels:
+    app: masmovil-backend-multitiendas
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: masmovil-backend-multitiendas
+  template:
+    metadata:
+      labels:
+        app: masmovil-backend-multitiendas
+    spec:
+      containers:
+      - name: masmovil-backend-multitiendas
+        image: 782886332900.dkr.ecr.eu-west-1.amazonaws.com/development:masmovil-backend-multitiendas-0.0.1
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 8080
+      imagePullSecrets:
+          - name: regcred

@@ -22,3 +22,15 @@
       AWS_PROFILE: development
       playbook: ./kubernetes/play-from-bastion.yaml
       tags: worker_node
+
+- name: Copy templates
+  hosts: tag_Name_kubernetes_control_plane
+  remote_user: ubuntu
+  become_user: root
+  become: false
+  tags: [ extra ]
+  tasks:
+    - name: Copy templates
+      synchronize:
+        src: "./roles/init-control-plane/files"
+        dest: /home/ubuntu

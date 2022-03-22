@@ -1,0 +1,49 @@
+{
+  "Statement": [
+    {
+      "Action": [
+        "s3:Get*"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "arn:aws:s3:::talento-development-kops-state/talento.k8s.local/addons/*",
+        "arn:aws:s3:::talento-development-kops-state/talento.k8s.local/cluster-completed.spec",
+        "arn:aws:s3:::talento-development-kops-state/talento.k8s.local/igconfig/node/*",
+        "arn:aws:s3:::talento-development-kops-state/talento.k8s.local/secrets/dockerconfig"
+      ]
+    },
+    {
+      "Action": [
+        "s3:GetBucketLocation",
+        "s3:GetEncryptionConfiguration",
+        "s3:ListBucket",
+        "s3:ListBucketVersions"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "arn:aws:s3:::talento-development-kops-state"
+      ]
+    },
+    {
+      "Action": [
+        "autoscaling:DescribeAutoScalingInstances",
+        "ec2:DescribeInstanceTypes",
+        "ec2:DescribeInstances",
+        "ec2:DescribeRegions",
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:BatchGetImage",
+        "ecr:DescribeRepositories",
+        "ecr:GetAuthorizationToken",
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:GetRepositoryPolicy",
+        "ecr:ListImages",
+        "iam:GetServerCertificate",
+        "iam:ListServerCertificates",
+        "kms:GenerateRandom"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ],
+  "Version": "2012-10-17"
+}

@@ -45,7 +45,7 @@
 - name: Copy templates
   become: false
   synchronize:
-    src: ./roles/init-control-plane/files
+    src: "./roles/init-control-plane/files"
     dest: /home/ubuntu
 
 # - name: Configure node ip
